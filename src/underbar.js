@@ -31,13 +31,20 @@
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
-    return n === undefined ? array[0] : array.slice(1, n);
+    return n === undefined ? array[0] : array.slice(0, n);
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+     var lastIndex = array.length - 1;
+     var startIndex = array.length - n;
+     if (startIndex < 0){
+       startIndex = 0;
+     }
+    return n === undefined ? array[lastIndex] : array.slice(startIndex,array.length);
   };
+
 
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
