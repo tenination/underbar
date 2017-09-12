@@ -31,7 +31,7 @@
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
-    return n === undefined ? array[0] : array.slice(0, n);
+    return n === undefined ? array[0] : array.slice(1, n);
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
