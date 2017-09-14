@@ -109,7 +109,7 @@
   _.uniq = function(array, isSorted, iterator) {
     var results = [];
     var iteratorResults = [];
-    
+
     //if no iterator function is provided 
     if (arguments.length < 3 && (isSorted || !isSorted)) {
       for (var i = 0; i < array.length; i++) {
@@ -204,6 +204,7 @@
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
+   
     return _.reduce(collection, function(wasFound, item) {
       if (wasFound) {
         return true;
@@ -216,6 +217,15 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (arguments[1] === undefined){
+       return false;
+    } 
+    return _.reduce(collection, function(everyElement, item) {
+      if (!everyElement) {
+        return false;
+      }
+      return Boolean(iterator(item));
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
