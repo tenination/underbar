@@ -276,6 +276,15 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+      for (var i = 1; i < arguments.length; i++){
+      var passedObject = arguments[i];
+      for (var key in passedObject){
+        if (obj[key] === undefined){
+          obj[key] = passedObject[key];
+        }   
+      }
+    }
+    return obj;
   };
 
 
@@ -309,6 +318,7 @@
       return result;
     };
   };
+//test function
 
   // Memorize an expensive function's results by storing them. You may assume
   // that the function only takes primitives as arguments.
@@ -319,6 +329,35 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+          
+    var result;
+    var argHistory = [];
+
+    return function() {                
+          //check if arguments is in argHistory array
+          //if so, return the corresponding result
+          for (var i = 0; i < argHistory.length; i++) {
+            if (JSON.stringify(argHistory[i].input) === JSON.stringify(arguments)){
+              result = argHistory[i].output;
+              return result;
+            }
+          }            
+            //if arguments not found in argHistory array
+            //compute new result
+            result = func.apply(this, arguments);
+            //store argument and result into history object
+            var newHistoryObject = {
+              input:arguments,//arguments of current function call
+              output:result //newly computed result
+            };
+          
+          //push history object into history array for later reference
+          argHistory.push(newHistoryObject);
+          //return the result
+          return result;
+        
+    };
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
