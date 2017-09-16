@@ -395,6 +395,35 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+
+    //new array is created that will hold indexes of original array in random manner, e.g[0,1,2,3,4] -> [3,1,0,4,2]
+    var randomIndexArray = [];
+    
+    //using a while loop seems to break testing program so for loop with
+    //sufficient number of iterations is used 
+    for (var i=0; i < 300; i++){
+      //random index number within bounds of original array is generated
+      var rand = getRandomIntInclusive(0,array.length-1);
+      //if generated index is not already in randomIndexArray, then push the generated rand
+      if (!randomIndexArray.includes(rand)) {
+        randomIndexArray.push(rand);                    
+      }
+    }
+    var outputArray = [];
+    for (var i = 0; i < array.length; i++){
+      //use randomIndexArray to map randomized indexes to values from original array
+      //push these values into output array
+      //resulting output array will have randomized order of original array elements
+      outputArray[i] = array[randomIndexArray[i]];
+    }
+    return outputArray;
+        
+    //function used to generate random integer between 0 and max index of original array
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    }
   };
 
 
