@@ -329,7 +329,7 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-          
+
     var result;
     var argHistory = [];
 
@@ -367,6 +367,20 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    //store arguments index 2 onwards into separate array
+    //this array will be supplied as arguments to func
+    var funcArguments = [];
+    for (var i = 2; i < arguments.length; i++) {
+      funcArguments.push(arguments[i]);
+    }
+    //after wait is over, call output function
+    setTimeout(output,wait);
+    
+    function output (){
+      //immediately invoke func with funcArguments 
+      func.apply(this,funcArguments);
+    }
+       
   };
 
 
